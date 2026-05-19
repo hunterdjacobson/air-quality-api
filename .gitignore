@@ -157,6 +157,12 @@ ENV/
 env.bak/
 venv.bak/
 
+venv/
+models/saved/*.pkl
+data/*.parquet
+data/*.csv
+
+
 # Spyder project settings
 .spyderproject
 .spyproject

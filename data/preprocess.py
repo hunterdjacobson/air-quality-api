@@ -29,6 +29,10 @@ def preprocess():
             # Pollutant concentration column is usually 'arithmetic_mean'
             # We'll rename it to the pollutant name for clarity
             df = df.rename(columns={'arithmetic_mean': p})
+            
+            # Aggregate: EPA data has multiple monitors per city. Take the mean.
+            df = df.groupby(['date', 'city_name'])[p].mean().reset_index()
+
             # Keep only necessary columns for the join
             epa_dfs[p] = df[['date', 'city_name', p]]
         else:
@@ -44,7 +48,7 @@ def preprocess():
         if merged_epa is None:
             merged_epa = df
         else:
-            merged_epa = pd.merge(merged_epa, df, on=['date', 'city_name'], how='outer')
+            merged_epa = pd.merge(merged_epa, df, on=['date', 'city_name'], how='inner')
 
     print("Loading weather data...")
     weather_files = glob.glob("data/weather_*.parquet")

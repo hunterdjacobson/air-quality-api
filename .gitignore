@@ -158,7 +158,7 @@ env.bak/
 venv.bak/
 
 venv/
-models/saved/*.pkl
+#models/saved/*.pkl ← models are committed to repo for Render deployment
 data/*.parquet
 data/*.csv
 

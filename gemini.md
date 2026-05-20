@@ -14,7 +14,7 @@ free on Render.
 - pytest for tests
 
 ## Project structure
-air-quality-api/
+```air-quality-api/
 ├── data/
 │   ├── collect_epa.py
 │   ├── collect_weather.py
@@ -28,10 +28,11 @@ air-quality-api/
 │   ├── schemas.py
 │   └── forecast.py
 ├── tests/
-├── .env               ← never commit this
+├── .env               
 ├── requirements.txt
 ├── render.yaml
 └── GEMINI.md
+```
 
 ## Coding rules
 - Use type hints on all functions

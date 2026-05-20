@@ -28,6 +28,11 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+@app.get("/", include_in_schema=False)
+async def root():
+    """Redirect to interactive documentation."""
+    return RedirectResponse(url="/docs", status_code=302)
+
 # CORS middleware allowing all origins
 app.add_middleware(
     CORSMiddleware,

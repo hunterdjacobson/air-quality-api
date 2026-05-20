@@ -1,0 +1,17 @@
+### Health check
+GET http://localhost:8000/health
+
+### List cities
+GET http://localhost:8000/cities
+
+### PM2.5 forecast for New York
+GET http://localhost:8000/forecast/new-york?pollutant=pm25&hours=48
+
+### O3 forecast for Los Angeles
+GET http://localhost:8000/forecast/los-angeles?pollutant=o3
+
+### Invalid city (should 404)
+GET http://localhost:8000/forecast/atlantis
+
+### Invalid pollutant (should 400)
+GET http://localhost:8000/forecast/new-york?pollutant=methane

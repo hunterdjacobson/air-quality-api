@@ -2,6 +2,7 @@ import os
 from typing import List
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Query, HTTPException
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 

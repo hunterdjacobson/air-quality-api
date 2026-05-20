@@ -5,6 +5,16 @@ from api.main import app
 from api.schemas import ForecastResponse, HourlyForecast
 
 @pytest.mark.asyncio
+async def test_root_redirect():
+    """Test that the root route redirects to /docs."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/", follow_redirects=False)
+    
+    assert response.status_code == 302
+    assert response.headers["location"] == "/docs"
+
+@pytest.mark.asyncio
 async def test_health():
     """Test that the health endpoint returns 200 and ok status."""
     transport = ASGITransport(app=app)

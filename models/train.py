@@ -14,10 +14,12 @@ def train_models():
     train_df = pd.read_parquet('data/train.parquet')
     val_df = pd.read_parquet('data/val.parquet')
 
-    TARGET_COLS = ['pm25_next_48h', 'o3_next_48h', 'no2_next_48h']
+    TARGET_COLS = ['pm2.5_next_48h', 'o3_next_48h', 'no2_next_48h']
     
-    # Define FEATURE_COLS: all columns that are not city, date, or target columns
-    ignore_cols = ['city', 'date'] + TARGET_COLS
+    # Define FEATURE_COLS: exclude metadata, raw pollutants, and targets
+    ignore_cols = set(['city_name', 'date', 'time', 'PM2.5', 'O3', 'NO2'] + 
+                      TARGET_COLS + 
+                      [c for c in train_df.columns if 'next' in c])
     FEATURE_COLS = [c for c in train_df.columns if c not in ignore_cols]
     
     print(f"Features: {FEATURE_COLS}")
@@ -72,7 +74,7 @@ def train_models():
         final_model.fit(X_combined, y_combined)
         
         # Save the model
-        model_path = f'models/saved/{target.split("_")[0]}_model.pkl'
+        model_path = f"models/saved/{target.split('_')[0].replace('.','')}_model.pkl"
         joblib.dump(final_model, model_path)
         print(f"Saved model to {model_path}")
 

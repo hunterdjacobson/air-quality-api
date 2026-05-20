@@ -12,11 +12,13 @@ def evaluate_models():
     print(f"Total test rows: {len(test_df)}")
     print(f"Test date range: {test_df['date'].min()} to {test_df['date'].max()}")
     
-    TARGET_COLS = ['pm25_next_48h', 'o3_next_48h', 'no2_next_48h']
-    pollutants = ['pm25', 'o3', 'no2']
+    TARGET_COLS = ['pm2.5_next_48h', 'o3_next_48h', 'no2_next_48h']
+    pollutants = ['pm2.5', 'o3', 'no2']
     
     # Define FEATURE_COLS (same logic as training)
-    ignore_cols = ['city', 'date'] + TARGET_COLS
+    ignore_cols = set(['city_name', 'date', 'time', 'PM2.5', 'O3', 'NO2'] + 
+                      TARGET_COLS + 
+                      [c for c in test_df.columns if 'next' in c])
     FEATURE_COLS = [c for c in test_df.columns if c not in ignore_cols]
     
     results = []
@@ -25,7 +27,8 @@ def evaluate_models():
         print(f"\n--- Evaluating {pollutant} ---")
         
         # Load model
-        model_path = f'models/saved/{pollutant}_model.pkl'
+        model_filename = f"{pollutant.replace('.', '')}_model.pkl"
+        model_path = f'models/saved/{model_filename}'
         if not os.path.exists(model_path):
             print(f"Warning: Model not found at {model_path}")
             continue

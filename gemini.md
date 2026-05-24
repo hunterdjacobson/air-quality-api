@@ -6,7 +6,7 @@ for 200+ US cities. Built with Python, XGBoost, and FastAPI. Deployed
 free on Render.
 
 ## Tech stack
-- Python 3.11
+- Python 3.12
 - pandas, polars, xgboost, scikit-learn, optuna, joblib
 - FastAPI + uvicorn
 - httpx for async HTTP calls
